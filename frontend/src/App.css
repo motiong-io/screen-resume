@@ -186,27 +186,47 @@ body {
 }
 
 .results-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 24px auto;
+  padding: 24px;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .candidates-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  width: 100%;
+}
+
+.candidates-list .ant-list-item {
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.candidates-list .ant-list-item:last-child {
+  margin-bottom: 0;
 }
 
 .candidate-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.candidate-card .ant-card-body {
+  padding: 24px;
 }
 
 .score-section {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.score-section .ant-typography {
+  margin: 0;
+}
+
+.score-section .ant-space {
+  margin-left: 16px;
 }
 
 .skills-section {
@@ -473,4 +493,102 @@ body {
 
 .education-item .ant-typography:last-child {
   margin-bottom: 0;
+}
+
+.analysis-section {
+  background-color: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.analysis-item {
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.analysis-item:last-child {
+  margin-bottom: 0;
+}
+
+.analysis-item .ant-typography {
+  margin-bottom: 8px;
+}
+
+.analysis-item .ant-tag {
+  margin-top: 8px;
+}
+
+/* 添加折叠面板样式 */
+.ant-collapse {
+  background: transparent;
+  border: none;
+}
+
+.ant-collapse-item {
+  border: none;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.ant-collapse-header {
+  padding: 16px !important;
+  border-radius: 8px !important;
+}
+
+.ant-collapse-content {
+  border: none;
+  background: transparent;
+}
+
+.ant-collapse-content-box {
+  padding: 0 !important;
+}
+
+.ant-collapse-expand-icon {
+  color: #1890ff;
+}
+
+.ant-collapse-item-active > .ant-collapse-header {
+  background: #f0f7ff;
+}
+
+/* History Modal Styles */
+.history-table {
+  margin-top: 16px;
+}
+
+.history-table .ant-table-thead > tr > th {
+  background: #fafafa;
+  font-weight: 500;
+}
+
+.history-table .ant-table-tbody > tr:hover > td {
+  background: #f0f7ff;
+}
+
+.history-table .ant-table-row {
+  cursor: pointer;
+}
+
+.history-table .ant-btn-link {
+  padding: 0;
+}
+
+.history-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 24px;
+}
+
+.history-modal .ant-modal-body {
+  padding: 24px;
+}
+
+.history-modal .ant-table-wrapper {
+  background: white;
+  border-radius: 8px;
 } 

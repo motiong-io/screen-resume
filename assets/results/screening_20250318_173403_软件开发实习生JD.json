@@ -1,0 +1,1235 @@
+{
+  "timestamp": "2025-03-18T17:34:03.029833",
+  "jd_file": "软件开发实习生JD.docx",
+  "result": {
+    "candidates": [
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】彭琪富_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "彭琪富",
+            "age": 23,
+            "work_years": null,
+            "location": "上海市嘉定区曹安公路4800号同济大学"
+          },
+          "contact": {
+            "email": "pengqifu203@163.com",
+            "phone": "15570969681"
+          },
+          "summary": "学习能力强,有较强的自驱力;团队合作意识强;勤奋努力,抗压能力强;项目/工作经历丰富,有较强的工程能力",
+          "skills": [
+            "Java",
+            "Python",
+            "Linux",
+            "SpringBoot",
+            "MySQL",
+            "Redis",
+            "MQ",
+            "优化算法",
+            "英语六级(CET-6)"
+          ],
+          "experience": [
+            {
+              "company": "百度(上海研发中心)",
+              "title": "MEG移动生态事业群----平台开发",
+              "duration": "2024.11-2025.3",
+              "responsibilities": [
+                "学习百度垂直搜索离线系统架构",
+                "参与跨部门的需求讨论,分析以及方案设计",
+                "开发或重构百度'经天'开发者平台的模块与功能",
+                "负责垂搜离线建库lambda算子自定义拓扑编排功能前后端开发",
+                "参与重构'端到端建库时延&成功率监控'模块"
+              ]
+            }
+          ],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "同济大学",
+              "year": "2023.09-2026.5",
+              "major": "控制科学与工程",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "南京理工大学",
+              "year": "2019.09-2023.4",
+              "major": "机器人工程",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": true
+            }
+          ],
+          "projects": [
+            {
+              "name": "Agri-I无人农场智能决策引擎系统",
+              "description": "为规模化农业生产提供全流程数字化管理与决策方案",
+              "technologies": [
+                "Kafka",
+                "Redis",
+                "SSE",
+                "REST API",
+                "gRPC"
+              ],
+              "role": "开发"
+            }
+          ],
+          "certifications": [],
+          "languages": [
+            "英语六级(CET-6)"
+          ]
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.7,
+            "experience_match": 0.8,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备Java、Python、SpringBoot等关键技能，且有MySQL、Redis等数据库经验，基本满足职位要求。但是，候选人缺乏Golang、Javascript等部分技能，技能匹配度为0.7",
+            "experience_analysis": "候选人在百度上海研发中心的实习经验与职位要求的开发实习生职位相符，参与过多个项目的开发，经验丰富，经验匹配度为0.8",
+            "education_analysis": "候选人硕士学历，211及以上学历，计算机科学或相关专业，基本满足教育背景要求，教育背景匹配度为0.9",
+            "overall_analysis": "候选人总体匹配度较高，技能、经验、教育背景均达到要求，具有较强的学习能力和团队合作精神，是一个较好的候选人"
+          },
+          "overall_score": 0.8,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海_BOSS】付子嘉_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "付子嘉",
+            "age": null,
+            "work_year": null,
+            "location": null
+          },
+          "contact": {
+            "email": "fuzijia2023@163.com",
+            "phone": "15868178523"
+          },
+          "summary": null,
+          "skills": [
+            "JavaSE",
+            "Java",
+            "Mysql",
+            "Redis",
+            "Java 内存模型",
+            "JUC 并发编程",
+            "JVM",
+            "RabbitMQ",
+            "Elasticsearch",
+            "SpringCloud Alibaba"
+          ],
+          "experience": [
+            {
+              "company": "上海施耐德电气有限公司",
+              "title": null,
+              "duration": "2024.4 - 2024.9",
+              "responsibilities": [
+                "模块开发：基于 Apache POI 实现数据批量导入导出",
+                "可视化优化：利用 Quartz 定期生成可视化 Dashboard 报表",
+                "性能优化：使用 Redis 缓存高频访问的配置表信息",
+                "数据整合：设计并实现多维度数据分析模块"
+              ]
+            },
+            {
+              "company": "奇富科技(原 360 数科)",
+              "title": null,
+              "duration": "2024.11 - 2025.1",
+              "responsibilities": [
+                "工具开发：设计基于 Spring 的灰度发布工具",
+                "模块开发：基于责任链模式，通过过滤器实现路由引擎代码逻辑及业务功能增强",
+                "性能优化：优化系统 sql 性能",
+                "并发设计：基于线程池实现调用异步化"
+              ]
+            }
+          ],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "华东理工大学",
+              "year": "2023.9 - 至今",
+              "major": "电子信息",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "浙江理工大学",
+              "year": "2019.9 - 2023.6",
+              "major": "机械工程",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": false
+            }
+          ],
+          "projects": [
+            {
+              "name": "美食探店平台",
+              "description": "美食探店平台是一个美食探店点评类项目",
+              "technologies": [
+                "SpringBoot",
+                "MySQL",
+                "Redis",
+                "Mybatis",
+                "Redisson"
+              ],
+              "role": null
+            }
+          ],
+          "certifications": null,
+          "languages": null
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.7,
+            "experience_match": 0.8,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备Java、Spring Boot等软件开发技能，与职位要求的Java、Golang、Python等技能有一定匹配度，但缺乏Golang和Python的经验。候选人还具备MySQL、Redis等数据库和中间件的经验，这与职位要求的SQL、NoSQL数据库有一定匹配度。",
+            "experience_analysis": "候选人在上海施耐德电气有限公司和奇富科技（原360数科）有软件开发的经验，参与过模块开发、可视化优化、性能优化等项目，这与职位要求的参与人工智能相关平台的设计与开发、维护和优化现有的服务有一定匹配度。",
+            "education_analysis": "候选人具有华东理工大学电子信息硕士学位，符合职位要求的计算机科学、软件工程或相关专业的研究生学历要求。候选人还具有浙江理工大学机械工程本科学位，虽然不是计算机科学或软件工程专业，但也有一定相关性。",
+            "overall_analysis": "候选人总体上与职位要求有一定匹配度，具备软件开发的技能和经验，教育背景也符合要求。但是，候选人还需要提高Golang和Python的技能，才能更好地匹配职位要求。"
+          },
+          "overall_score": 0.8,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海_BOSS】陈智越_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "陈智越",
+            "age": 24,
+            "work_years": null,
+            "location": null
+          },
+          "contact": {
+            "email": "13950766609@163.com",
+            "phone": "13950766609"
+          },
+          "summary": "学习能力较强,积极接触多种技术栈,并积累了丰富的经验。在多次参与竞赛和实习项目中,深入了解了项目开发和团队协作模式。乐于接受新知识,善于解决难题。性格随和,容易与他人相处,并能够快速融入团体,建立良好的人际关系。具有出色的团队合作意识。擅长与他人进行有效的沟通交流,能够积极主动地与团队成员合作,以完成工作任务。",
+          "skills": [
+            "Java",
+            "Spring Boot",
+            "Spring",
+            "Spring MVC",
+            "Mybatis",
+            "Redis",
+            "PyTorch",
+            "LangChain"
+          ],
+          "experience": [
+            {
+              "company": "国网",
+              "title": "Java后端开发",
+              "duration": "2024-09 ~ 至今",
+              "responsibilities": [
+                "负责国网试题库生成系统的部分Java后端开发",
+                "使用Redis作为高速缓存组件",
+                "使用BERT-large-zh模型对文本进行encoder"
+              ]
+            },
+            {
+              "company": "中国船舶集团",
+              "title": "算法实习生",
+              "duration": "2023-10 ~ 2024-06",
+              "responsibilities": [
+                "利用大语言模型驱动FreeCAD扶梯三维建模",
+                "整合扶梯避障算法和扶梯自动装配算法",
+                "基于LangChain框架搭建本地私有知识库"
+              ]
+            }
+          ],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "上海大学",
+              "year": "2024-09 ~ 2027-06",
+              "major": "软件工程",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "江苏科技大学",
+              "year": "2020-09 ~ 2024-06",
+              "major": "计算机科学与技术",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": false
+            }
+          ],
+          "projects": [
+            {
+              "name": "国网试题库生成系统",
+              "description": "大模型驱动的自动化试题生成系统",
+              "technologies": [
+                "Java",
+                "Spring Boot",
+                "Redis"
+              ],
+              "role": "Java后端开发"
+            },
+            {
+              "name": "FreeCAD三维建模",
+              "description": "利用大语言模型驱动FreeCAD扶梯三维建模",
+              "technologies": [
+                "PyTorch"
+              ],
+              "role": "算法实习生"
+            }
+          ],
+          "certifications": [],
+          "languages": []
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.7,
+            "experience_match": 0.8,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人陈智越的技能与职位要求有较高的匹配度，特别是在Java、Spring Boot等方面。然而，在Golang、Javascript等技能方面存在一定的缺口，但总体技能匹配度较好。",
+            "experience_analysis": "陈智越的工作经验和实习经历与职位要求较为匹配，特别是在Java后端开发和算法实习生方面的经验。这些经验能够为其在软件开发实习生岗位上提供坚实的基础。",
+            "education_analysis": "陈智越的教育背景符合职位要求，硕士学位和软件工程专业为其提供了扎实的理论基础。同时，其所就读的学校也符合211及以上的学历要求，教育背景匹配度较高。",
+            "overall_analysis": "综上所述，陈智越在技能、经验和教育背景方面都表现出较高的匹配度。虽然在某些技能方面存在缺口，但其整体实力和潜力较为突出。因此，推荐陈智越为软件开发实习生岗位的强力候选人。"
+          },
+          "overall_score": 0.8,
+          "recommendation": "Strong Match - Highly Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海_BOSS】陈豫建_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "陈豫建",
+            "age": null,
+            "work_year": null,
+            "location": "安徽 合肥 北京"
+          },
+          "contact": {
+            "email": "2200316527@Qq.Com",
+            "phone": "15716604112"
+          },
+          "summary": null,
+          "skills": [
+            "Go",
+            "Gin",
+            "GORM",
+            "MySQL",
+            "Redis",
+            "JWT",
+            "grpc",
+            "kafka",
+            "Docker",
+            "wire",
+            "etcd",
+            "SpringBoot",
+            "Mybatis",
+            "Websocket"
+          ],
+          "experience": [],
+          "education": [
+            {
+              "degree": "硕士在读",
+              "institution": "中国科学技术大学",
+              "year": "2024/09 - 2027/06(预计)",
+              "major": "软件工程",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "工学学士",
+              "institution": "北京航空航天大学",
+              "year": "2019/09 - 2023/06",
+              "major": "飞行器控制与信息工程",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            }
+          ],
+          "projects": [
+            {
+              "name": "Webook——仿小红书社交平台",
+              "description": "基于 Go 语言开发了类似小红书的文本社交平台",
+              "technologies": [
+                "Gin",
+                "GORM",
+                "MySQL",
+                "Redis",
+                "JWT",
+                "grpc",
+                "kafka",
+                "Docker",
+                "wire",
+                "etcd"
+              ],
+              "role": "开发者"
+            },
+            {
+              "name": "简单 KV 缓存数据库",
+              "description": "基于 Go 语言开发,基于 Bitcask 模型,兼容 Redis 数据结构和协议的高性能 KV 存储引擎",
+              "technologies": [
+                "Go",
+                "Bitcask"
+              ],
+              "role": "开发者"
+            },
+            {
+              "name": "商家外卖点餐系统",
+              "description": "基于 SpringBoot、MySQL、Redis、Mybatis,实现一个商家外卖点餐系统",
+              "technologies": [
+                "SpringBoot",
+                "MySQL",
+                "Redis",
+                "Mybatis",
+                "Websocket",
+                "JWT"
+              ],
+              "role": "开发者"
+            }
+          ],
+          "certifications": [],
+          "languages": []
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.8,
+            "experience_match": 0.6,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人陈豫建的技能与职位要求有较高的匹配度，特别是在Go语言、Gin、GORM、MySQL、Redis等方面，均有实践经验。然而，在人工智能、机器学习等方面，候选人的技能信息不够明确，可能需要进一步评估。",
+            "experience_analysis": "由于候选人没有提供直接的工作经验信息，但通过项目经验可以看出，候选人有参与过多个项目的开发，包括社交平台、缓存数据库和外卖点餐系统等，表明有一定的实践经验。然而，缺乏直接的工作经验可能会对其在职位上的适应性造成一定影响。",
+            "education_analysis": "候选人的教育背景非常突出，拥有211及以上学历，硕士在读，专业为软件工程，完全符合职位的教育要求。这种背景通常能提供良好的计算机科学和软件开发基础。",
+            "overall_analysis": "综上所述，候选人陈豫建在技能和教育背景方面表现突出，但在经验方面相对较弱。考虑到职位的要求和候选人的潜力，认为其是一个较好的匹配，但需要在面试中进一步评估其经验和技能的深度。"
+          },
+          "overall_score": 0.75,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海 BOSS】熊江 25年应届生.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "熊江",
+            "age": null,
+            "work_year": null,
+            "location": "上海"
+          },
+          "contact": {
+            "email": "51255902134@stu.ecnu.edu.cn",
+            "phone": "15359337195"
+          },
+          "summary": null,
+          "skills": [
+            "Java",
+            "SpringMVC",
+            "MyBatis",
+            "SpringBoot",
+            "数据结构",
+            "算法",
+            "Linux",
+            "计算机网络",
+            "数据库",
+            "设计模式",
+            "Kafka",
+            "RocketMQ"
+          ],
+          "experience": [
+            {
+              "company": "上海高顿企业管理咨询有限公司",
+              "title": "后台研发",
+              "duration": "2024.05 - 2024.08",
+              "responsibilities": [
+                "学习时长大表改造",
+                "一体化课程运营数据报表"
+              ]
+            }
+          ],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "华东师范大学",
+              "year": "2022.09 - 2025.06",
+              "major": "软件工程",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "厦门大学",
+              "year": "2018.06 - 2022.06",
+              "major": "物理海洋学",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            }
+          ],
+          "projects": [
+            {
+              "name": "仿'京东'电商平台",
+              "description": "微服务架构设计,分布式环境下利用Spring Cloud框架",
+              "technologies": [
+                "Spring Cloud",
+                "RocketMQ",
+                "Redis"
+              ],
+              "role": "项目开发负责人"
+            }
+          ],
+          "certifications": null,
+          "languages": [
+            "CET-6"
+          ]
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.7,
+            "experience_match": 0.4,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备Java、Spring Boot等关键技能，部分技能如Golang、Javascript未体现，但在项目中使用了Spring Cloud、RocketMQ等相关技术，技能匹配度较高",
+            "experience_analysis": "候选人具有后台研发经验，但经验时间较短，且与人工智能相关平台的设计与开发经验不够直接，经验匹配度一般",
+            "education_analysis": "候选人拥有软件工程硕士学位，且毕业于211及以上高校，教育背景匹配度很高",
+            "overall_analysis": "候选人在技能和教育背景方面表现突出，但经验方面有一定不足，整体匹配度较好"
+          },
+          "overall_score": 0.73,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】张海建_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "张海建",
+            "age": 22,
+            "work_years": 0,
+            "location": "上海"
+          },
+          "contact": {
+            "email": "zz118752022@163.com",
+            "phone": "18516292810"
+          },
+          "summary": "Java开发工程师(实习生),熟悉Java语言和JVM相关知识,拥有良好的编码习惯和面向对象编程思想。",
+          "skills": [
+            "Java",
+            "SpringBoot",
+            "SpringMVC",
+            "Mybatis",
+            "MybatisPlus",
+            "Mysql",
+            "Redis",
+            "Ngnix",
+            "RabbitMQ",
+            "Html",
+            "CSS",
+            "JS",
+            "Vue",
+            "ElementUI"
+          ],
+          "experience": [],
+          "education": [
+            {
+              "degree": "本科",
+              "institution": "华东理工大学",
+              "year": "2019-2023",
+              "major": "智能科学与技术",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": true
+            },
+            {
+              "degree": "硕士",
+              "institution": "同济大学",
+              "year": "2023-至今",
+              "major": "电子信息",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            }
+          ],
+          "projects": [
+            {
+              "name": "校园点餐外送系统",
+              "description": "为校园内商家开发线上点餐和外送服务的系统",
+              "technologies": [
+                "SpringBoot",
+                "MybatisPlus",
+                "Mysql",
+                "Redis",
+                "Nginx",
+                "Websocket"
+              ],
+              "role": "开发工程师"
+            },
+            {
+              "name": "校园美食店铺点评",
+              "description": "为校园内用户提供发布生活笔记的服务平台",
+              "technologies": [
+                "SpringBoot",
+                "MybatisPlus",
+                "Mysql",
+                "Redis",
+                "Nginx",
+                "RabbitMQ",
+                "Redisson"
+              ],
+              "role": "开发工程师"
+            }
+          ],
+          "certifications": [],
+          "languages": [
+            "中文",
+            "英文"
+          ]
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.7,
+            "experience_match": 0.4,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备Java、Spring Boot等职位要求的技能，但缺乏Golang、Python等其他必要技能。候选人的技能与职位要求的匹配度较高，但不是完全匹配。",
+            "experience_analysis": "候选人没有直接相关的工作经验，但有参与过相关项目的开发，这表明候选人有一定的实践经验。然而，缺乏正式的工作经验可能会影响候选人的适应性和工作效率。",
+            "education_analysis": "候选人的教育背景符合职位要求，硕士学位和211及以上学历是职位的基本要求。候选人就读的同济大学和华东理工大学都是知名高校，这增加了候选人的竞争力。",
+            "overall_analysis": "候选人在技能和教育背景方面表现出色，但在经验方面有一定的不足。然而，候选人的项目经验和教育背景表明其有潜力快速适应职位要求。因此，候选人是一个良好的选择，值得进一步面试和评估。"
+          },
+          "overall_score": 0.73,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】陈仕杰_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "陈仕杰",
+            "age": 23,
+            "location": "成都",
+            "work_years": 0
+          },
+          "contact": {
+            "email": "1372813524@qq.com",
+            "phone": "19373455062"
+          },
+          "summary": "求职意向:后端开发工程师(实习)",
+          "skills": [
+            "Java",
+            "MySQL",
+            "Redis",
+            "JVM",
+            "Spring",
+            "SpringBoot",
+            "Mybatis"
+          ],
+          "experience": [],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "电子科技大学",
+              "year": "2024-2027",
+              "major": "网络空间安全",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "深圳大学",
+              "year": "2020-2024",
+              "major": "通信工程",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": false
+            }
+          ],
+          "projects": [
+            {
+              "name": "闪链助手",
+              "description": "帮助用户完成较长链接转换成短链接场景",
+              "technologies": [
+                "SpringBoot",
+                "SpringCloudAlibaba",
+                "RabbitMQ",
+                "ShardingSphere",
+                "Redis",
+                "MySQL"
+              ],
+              "role": "开发工程师"
+            },
+            {
+              "name": "校园生活服务平台",
+              "description": "基于校园商户与用户点评为主的平台",
+              "technologies": [
+                "SpringBoot",
+                "MyBatisPlus",
+                "MySQL",
+                "Redis"
+              ],
+              "role": "开发工程师"
+            }
+          ],
+          "certifications": [],
+          "languages": []
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.7,
+            "experience_match": 0.4,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人陈仕杰具备多种编程技能，包括Java、MySQL、Redis、JVM、Spring、SpringBoot和Mybatis等，这些技能与软件开发实习生的要求有一定匹配度，特别是Java和Spring Boot的掌握。但是，候选人缺乏Golang、Python、Javascript和NoSQL数据库等技能的体现，因此技能匹配度不够完美。",
+            "experience_analysis": "由于候选人没有直接的工作经验，但有参与过两个项目，包括闪链助手和校园生活服务平台，这些项目经验体现了候选人的实践能力和团队合作精神。然而，缺乏直接的软件开发实习或工作经验导致经验匹配度不高。",
+            "education_analysis": "候选人的教育背景非常突出，硕士就读于电子科技大学，专业为网络空间安全，且具备211及以上学历，这与软件开发实习生的教育要求高度匹配。候选人的学历和专业背景为其申请提供了坚实的基础。",
+            "overall_analysis": "综上所述，候选人陈仕杰在技能、经验和教育背景方面都有一定的匹配度，特别是教育背景和部分技能的匹配度较高。然而，经验相对较少，部分技能也需要进一步的提升。因此，候选人可以被考虑为软件开发实习生的候选人，但需要在面试中进一步评估其潜力和学习能力。"
+          },
+          "overall_score": 0.73,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】杨博淳_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "杨博淳",
+            "age": "22",
+            "work_years": "0",
+            "location": "南京"
+          },
+          "contact": {
+            "email": "ba1ye0610@163.com",
+            "phone": "13584661893"
+          },
+          "summary": "Java后端开发",
+          "skills": [
+            "Java基础",
+            "多线程并发",
+            "JVM原理",
+            "Mysql",
+            "Redis",
+            "Spring Boot",
+            "MyBatis",
+            "MyBatisPlus",
+            "Kafka",
+            "Zookeeper",
+            "Git",
+            "Maven"
+          ],
+          "experience": [
+            {
+              "company": "上海得物有限公司",
+              "title": "Java后端开发实习生",
+              "duration": "未指定",
+              "responsibilities": [
+                "参与商家拓展模块开发",
+                "对接数十家海外买手店商品系统接口",
+                "实现商品全量、增量拉取及下单功能",
+                "采用AOP切面实现日志埋点及RateLimiter工具类实现限流",
+                "编写反杀功能",
+                "设计反杀比例逻辑",
+                "改造系统增量拉取商品功能",
+                "开发披萨机器人",
+                "完善公司内部飞书机器人功能",
+                "设计可配置化机器人交互卡片",
+                "通过Dubbo对接12个业务系统接口",
+                "实现商家信息实时修改、订单智能重推、权限自动录入"
+              ]
+            }
+          ],
+          "education": [
+            {
+              "degree": "硕士研究生",
+              "institution": "东南大学",
+              "year": "2023-2026",
+              "major": "网络空间安全",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "南京邮电大学",
+              "year": "2019-2023",
+              "major": "信息安全",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": false
+            }
+          ],
+          "projects": [
+            {
+              "name": "电商购物系统",
+              "description": "基于SpringBoot实现的后台管理系统",
+              "technologies": [
+                "SSM",
+                "MySQL",
+                "Redis",
+                "Nginx",
+                "Spring Boot"
+              ],
+              "role": "开发"
+            }
+          ],
+          "certifications": [],
+          "languages": [
+            "中文",
+            "英文(六级)"
+          ]
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.6,
+            "experience_match": 0.7,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备Java后端开发技能，包括Java基础、多线程并发、JVM原理、Spring Boot等，这些技能与职位要求的Java、Spring Boot等技能相匹配。但是，候选人缺乏Golang、Python、Javascript等其他编程语言的经验，以及人工智能、机器学习等领域的知识。",
+            "experience_analysis": "候选人具有Java后端开发实习生的经验，参与过商家拓展模块开发、对接数十家海外买手店商品系统接口等项目，这些经验与职位要求的参与人工智能相关平台的设计与开发、维护和优化现有的服务等职责相匹配。但是，候选人的经验主要集中在Java后端开发，缺乏其他领域的经验。",
+            "education_analysis": "候选人具有硕士研究生学历，东南大学网络空间安全专业，211及以上学历，满足职位要求的教育背景。此外，候选人还具有南京邮电大学信息安全本科背景，虽然不是211院校，但也体现了候选人的计算机科学和信息安全知识基础。",
+            "overall_analysis": "候选人在技能、经验和教育背景方面都有一定的匹配度，特别是在Java后端开发和教育背景方面。但是，候选人还需要提高在其他编程语言、人工智能和机器学习等领域的知识和经验，以更好地匹配职位要求。"
+          },
+          "overall_score": 0.72,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】罗于迪_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "罗于迪",
+            "age": 21,
+            "work_years": 0,
+            "location": "未提及"
+          },
+          "contact": {
+            "email": "luoyudi@mail.ustc.edu.cn",
+            "phone": "15656525165"
+          },
+          "summary": "未提及",
+          "skills": [
+            "Java",
+            "Spring",
+            "SpringBoot",
+            "Mybatis",
+            "MySQL",
+            "Redis",
+            "JVM",
+            "数据结构与算法",
+            "计算机网络",
+            "操作系统",
+            "pytorch",
+            "Transformer",
+            "BERT",
+            "GPT"
+          ],
+          "experience": [],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "中国科学技术大学",
+              "year": "2024-2027",
+              "major": "软件工程",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "合肥工业大学",
+              "year": "2020-2024",
+              "major": "智能科学与技术",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": false
+            }
+          ],
+          "projects": [
+            {
+              "name": "仿大众点评",
+              "description": "基于SpringBoot和Redis开发的一款点评APP",
+              "technologies": [
+                "SpringBoot",
+                "Mybatis-Plus",
+                "Redis",
+                "MySQL",
+                "Redisson",
+                "RabbitMQ"
+              ],
+              "role": "开发者"
+            },
+            {
+              "name": "袁小姐私房蛋糕",
+              "description": "为亲戚经营的私房蛋糕店定制的管理系统",
+              "technologies": [
+                "SpringBoot",
+                "Mybatis",
+                "Redis",
+                "MySQL",
+                "Nginx"
+              ],
+              "role": "开发者"
+            }
+          ],
+          "certifications": [],
+          "languages": []
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.8,
+            "experience_match": 0.2,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备多种编程语言技能，如Java、Spring、SpringBoot等，且有数据结构与算法、计算机网络、操作系统等基础知识，部分技能与职位要求匹配，但缺乏Golang、Python、Javascript等技能",
+            "experience_analysis": "候选人没有直接的工作经验，但有参与过多个项目，如仿大众点评和袁小姐私房蛋糕的管理系统，体现出一定的实践能力",
+            "education_analysis": "候选人具有硕士学位，专业为软件工程，且就读于211及以上学历的中国科学技术大学，教育背景较为匹配",
+            "overall_analysis": "候选人在技能和教育背景方面表现较好，但经验方面相对较弱，整体上是一个较好的候选人"
+          },
+          "overall_score": 0.63,
+          "recommendation": "Good Match - Recommended"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】张思敏_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "张思敏",
+            "age": null,
+            "work_years": null,
+            "location": null
+          },
+          "contact": {
+            "email": "1972170094@qq.com",
+            "phone": "18639107063"
+          },
+          "summary": "Java后端开发实习",
+          "skills": [
+            "Java",
+            "MySQL",
+            "Redis",
+            "SpringBoot",
+            "Spring MVC",
+            "MyBatis",
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Vue"
+          ],
+          "experience": [],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "北京航空航天大学",
+              "year": "2023-2026",
+              "major": "电子信息",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "郑州大学",
+              "year": "2019-2023",
+              "major": "电子信息工程",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": true
+            }
+          ],
+          "projects": [
+            {
+              "name": "外卖订餐项目",
+              "description": "使用主流Java EE框架搭建后台管理系统与客户端系统",
+              "technologies": [
+                "SpringBoot",
+                "Mybatis",
+                "Maven",
+                "MySQL",
+                "Redis",
+                "JWT"
+              ],
+              "role": "后端开发"
+            }
+          ],
+          "certifications": [
+            {
+              "name": "2023年河南省优秀学士学位论文",
+              "year": "2023"
+            },
+            {
+              "name": "2021RoboCup机器人世界杯中国赛",
+              "year": "2021"
+            },
+            {
+              "name": "2021中国机器人大赛",
+              "year": "2021"
+            },
+            {
+              "name": "2021全国大学生数学建模竞赛",
+              "year": "2021"
+            },
+            {
+              "name": "第十三届蓝桥杯",
+              "year": "2022"
+            }
+          ],
+          "languages": [
+            {
+              "name": "英语",
+              "level": "CET-4"
+            }
+          ]
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.7,
+            "experience_match": 0.2,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备Java、Spring Boot等技能，与职位要求的软件开发实习生技能相符，但缺乏Golang、Python等其他要求技能",
+            "experience_analysis": "候选人没有直接的工作经验，但有相关的项目经验，如外卖订餐项目，表明有一定的实践能力",
+            "education_analysis": "候选人具有硕士学位，来自211及以上大学，专业为电子信息，基本满足职位的教育背景要求",
+            "overall_analysis": "候选人在技能和教育背景方面表现较好，但经验方面相对较弱，需要在实习过程中积累更多的实践经验"
+          },
+          "overall_score": 0.6,
+          "recommendation": "Moderate Match - Consider for Interview"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】李佚名_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "李佚名",
+            "age": null,
+            "work_years": null,
+            "location": null
+          },
+          "contact": {
+            "email": "1642058146@qq.com",
+            "phone": "18240205810"
+          },
+          "summary": "具有较强的学习能力、适应能力及抗压能力,能在不同的环境中快速学习掌握新技术。 具备良好的沟通能力和团队协作能力,能够快速融入团队。",
+          "skills": [
+            "JAVASE基础",
+            "Spring Boot",
+            "Mybatisplus",
+            "Redis",
+            "MySQL",
+            "并发编程",
+            "设计模式"
+          ],
+          "experience": [],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "东北大学",
+              "year": "2023.09-2026.06",
+              "major": "计算机技术",
+              "is_qs_top20": true,
+              "is_985": false,
+              "is_211": true
+            },
+            {
+              "degree": "本科",
+              "institution": "渤海大学",
+              "year": "2019.09-2023.06",
+              "major": "软件工程",
+              "is_qs_top20": false,
+              "is_985": false,
+              "is_211": false
+            }
+          ],
+          "projects": [
+            {
+              "name": "校园美食速递",
+              "description": "校园美食速递是一款为在校学生提供学校食堂外送至宿舍服务的软件,包含系统管理后台和用户端(微信小程序)两部分。",
+              "technologies": [
+                "SpringBoot",
+                "MybatisPlus",
+                "MySQL",
+                "Redis"
+              ],
+              "role": null
+            },
+            {
+              "name": "Db-Router数据库路由组件",
+              "description": "此组件项目用于优化应用程序数据库路由设计。",
+              "technologies": [
+                "SpringBoot",
+                "AOP",
+                "AbstractRoutingDataSource",
+                "MyBatis Plugin StatementHanlder",
+                "扰动函数",
+                "哈希散列",
+                "ThreadLocal"
+              ],
+              "role": null
+            }
+          ],
+          "certifications": [],
+          "languages": []
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.6,
+            "experience_match": 0.0,
+            "education_match": 0.9
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备部分与职位要求相符的技能，如Java、Spring Boot等，但缺乏Golang、Python、Javascript等其他关键技能。技能匹配度为0.6，表明候选人在技术技能方面有一定的基础，但仍需要学习和提升。",
+            "experience_analysis": "候选人没有提供任何工作经验信息，因此经验匹配度为0。虽然候选人有参与过一些项目，但这些项目经验是否能完全满足职位要求尚需进一步评估。",
+            "education_analysis": "候选人的教育背景较为匹配，硕士学位和211及以上学历满足了职位要求。教育背景匹配度为0.9，表明候选人在学历和专业方面较为符合要求。",
+            "overall_analysis": "候选人在技能和教育背景方面有一定的优势，但缺乏工作经验。总体匹配度中等，需要进一步评估候选人的学习能力、团队合作精神和问题解决能力等软素质。"
+          },
+          "overall_score": 0.5,
+          "recommendation": "Moderate Match - Consider for Interview"
+        }
+      },
+      {
+        "file_name": "【软件开发实习生（人工智能方向）_上海BOSS】李奥_一年以内.pdf",
+        "candidate_info": {
+          "basic_info": {
+            "name": "李奥",
+            "age": null,
+            "work_year": null,
+            "location": null
+          },
+          "contact": {
+            "email": "5267956780@g.ecc.u-tokyo.ac.jp",
+            "phone": "13033050915"
+          },
+          "summary": null,
+          "skills": [
+            "Java",
+            "Spring",
+            "SpringMVC",
+            "SpringBoot",
+            "MyBatis",
+            "MyBatis-Plus",
+            "MySQL",
+            "Redis",
+            "Caffeine",
+            "WebSocket",
+            "Disruptor"
+          ],
+          "experience": [],
+          "education": [
+            {
+              "degree": "硕士",
+              "institution": "东京大学",
+              "year": "2024-2026",
+              "major": "电子信息工程",
+              "is_qs_top20": true,
+              "is_985": false,
+              "is_211": false
+            },
+            {
+              "degree": "本科",
+              "institution": "南开大学",
+              "year": "2018-2022",
+              "major": "软件工程",
+              "is_qs_top20": false,
+              "is_985": true,
+              "is_211": true
+            }
+          ],
+          "projects": [
+            {
+              "name": "智能图像管理与协同编辑系统",
+              "description": "本项目由实验室组织开发,采用前后端分离的架构,前端与后端独立部署,涵盖公共图库、私有图库以及团队图库三大模块。",
+              "technologies": [
+                "SpringBoot",
+                "MyBatis Plus",
+                "MyBatis X",
+                "Redis",
+                "Caffeine",
+                "WebSocket",
+                "Disruptor"
+              ],
+              "role": null
+            }
+          ],
+          "certifications": [],
+          "languages": [
+            "英语 (CET-6)"
+          ]
+        },
+        "evaluation": {
+          "scores": {
+            "skills_match": 0.6,
+            "experience_match": 0.0,
+            "education_match": 0.8
+          },
+          "analysis": {
+            "skills_analysis": "候选人具备部分与职位要求相符的技能，如Java、Spring Boot等，但缺乏Golang、Python、Javascript等其他关键技能。技能匹配度为60%。",
+            "experience_analysis": "候选人没有提供任何工作经验信息，无法评估经验匹配度。",
+            "education_analysis": "候选人拥有硕士学位，专业为电子信息工程，且曾就读于211及985院校，教育背景较为匹配，匹配度为80%。",
+            "overall_analysis": "候选人在教育背景方面较为匹配，但在技能和经验方面存在一定差距。整体而言，候选人具备一定的潜力，但需要进一步评估和培训。"
+          },
+          "overall_score": 0.46,
+          "recommendation": "Moderate Match - Consider for Interview"
+        }
+      }
+    ],
+    "job_requirements": {
+      "job_title": "软件开发实习生",
+      "industry": "软件开发",
+      "required_skills": [
+        "Java",
+        "Golang",
+        "Python",
+        "Javascript",
+        "Web技术栈",
+        "Spring Boot",
+        "Gin",
+        "Django",
+        "SQL",
+        "NoSQL数据库",
+        "数据结构",
+        "算法",
+        "操作系统",
+        "数据库原理",
+        "人工智能",
+        "机器学习"
+      ],
+      "preferred_skills": [
+        "多种开发语言",
+        "良好的代码编写规范"
+      ],
+      "responsibilities": [
+        "参与人工智能相关平台的设计与开发",
+        "维护和优化现有的服务",
+        "与其他团队、数据科学团队协作",
+        "编写和维护项目文档",
+        "协助解决开发过程中遇到的技术问题"
+      ],
+      "experience_requirements": {
+        "years": "无",
+        "description": "无"
+      },
+      "education_requirements": {
+        "degree": "研究生",
+        "major": "计算机科学、软件工程或相关专业"
+      },
+      "additional_requirements": [
+        "211及以上学历",
+        "良好的问题解决能力",
+        "团队合作精神",
+        "英语读写能力良好"
+      ]
+    }
+  }
+}
