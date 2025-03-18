@@ -16,4 +16,5 @@ pytest-asyncio>=0.21.0
 pytest-cov>=4.1.0
 httpx>=0.24.0  # For FastAPI TestClient
 PyPDF2==3.0.1
-websockets 
+websockets
+aiohttp>=3.8.0 

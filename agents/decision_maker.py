@@ -1,15 +1,14 @@
 from typing import Dict, Any, List
 import json
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 from .base_agent import BaseAgent
+from .llm_client import LlamaClient
 
 class DecisionMakerAgent(BaseAgent):
     """Agent responsible for evaluating candidates against job requirements."""
     
     def __init__(self):
         super().__init__("DecisionMaker")
-        self.vectorizer = TfidfVectorizer()
+        self.llm_client = LlamaClient()
         
     async def validate(self, data: Dict[str, Any]) -> bool:
         """Validate if the input contains required candidate and job data."""
@@ -17,90 +16,73 @@ class DecisionMakerAgent(BaseAgent):
         return all(key in data for key in required_keys)
         
     async def process(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        """Evaluate candidate fit against job requirements."""
+        """Evaluate candidate fit against job requirements using LLM."""
         if not await self.validate(data):
             raise ValueError("Invalid input data format")
             
         candidate_info = data["candidate_info"]
         job_requirements = data["job_requirements"]
         
-        scores = {
-            "skills_match": await self._evaluate_skills(
-                candidate_info["skills"],
-                job_requirements["required_skills"]
-            ),
-            "experience_match": await self._evaluate_experience(
-                candidate_info["experience"],
-                job_requirements["required_experience"]
-            ),
-            "education_match": await self._evaluate_education(
-                candidate_info["education"],
-                job_requirements["required_education"]
-            )
-        }
-        
-        overall_score = await self._calculate_overall_score(scores)
-        
-        return {
-            "scores": scores,
-            "overall_score": overall_score,
-            "recommendation": await self._generate_recommendation(overall_score),
-            "analysis": await self._generate_analysis(scores, candidate_info, job_requirements)
-        }
-        
-    async def _evaluate_skills(self, candidate_skills: List[str], required_skills: List[str]) -> float:
-        """Evaluate the match between candidate skills and required skills."""
-        if not candidate_skills or not required_skills:
-            return 0.0
+        # 构建评估提示
+        evaluation_prompt = f"""
+        请作为专业的HR评估专家，分析候选人与职位的匹配程度。
+
+        职位要求：
+        {json.dumps(job_requirements, ensure_ascii=False, indent=2)}
+
+        候选人信息：
+        {json.dumps(candidate_info, ensure_ascii=False, indent=2)}
+
+        请提供详细的评估，并以以下JSON格式返回结果：
+        {{
+            "scores": {{
+                "skills_match": "技能匹配得分(0-1)",
+                "experience_match": "经验匹配得分(0-1)",
+                "education_match": "教育背景匹配得分(0-1)"
+            }},
+            "analysis": {{
+                "skills_analysis": "技能匹配分析",
+                "experience_analysis": "经验匹配分析",
+                "education_analysis": "教育背景匹配分析",
+                "overall_analysis": "整体评估分析"
+            }},
+            "overall_score": "总体匹配得分(0-1)",
+            "recommendation": "建议（'Strong Match - Highly Recommended' | 'Good Match - Recommended' | 'Moderate Match - Consider for Interview' | 'Weak Match - Not Recommended'）"
+        }}
+
+        请确保：
+        1. 所有得分在0到1之间
+        2. 分析要具体且有见地
+        3. 只返回JSON格式数据，不要包含其他说明文字
+        """
+
+        try:
+            response = await self.llm_client._call_llm(evaluation_prompt)
+            # 提取JSON部分
+            json_str = response[response.find("{"):response.rfind("}")+1]
+            result = json.loads(json_str)
             
-        # Convert skills to text for TF-IDF vectorization
-        candidate_text = " ".join(candidate_skills)
-        required_text = " ".join(required_skills)
-        
-        # Calculate similarity score
-        vectors = self.vectorizer.fit_transform([candidate_text, required_text])
-        similarity = cosine_similarity(vectors[0:1], vectors[1:2])[0][0]
-        
-        return float(similarity)
-        
-    async def _evaluate_experience(self, candidate_exp: List[Dict], required_exp: Dict) -> float:
-        """Evaluate the match between candidate experience and required experience."""
-        # Implement experience evaluation logic
-        return 0.0
-        
-    async def _evaluate_education(self, candidate_edu: List[Dict], required_edu: Dict) -> float:
-        """Evaluate the match between candidate education and required education."""
-        # Implement education evaluation logic
-        return 0.0
-        
-    async def _calculate_overall_score(self, scores: Dict[str, float]) -> float:
-        """Calculate the overall candidate score."""
-        weights = {
-            "skills_match": 0.4,
-            "experience_match": 0.4,
-            "education_match": 0.2
-        }
-        
-        overall_score = sum(score * weights[metric] for metric, score in scores.items())
-        return round(overall_score, 2)
-        
-    async def _generate_recommendation(self, overall_score: float) -> str:
-        """Generate a recommendation based on the overall score."""
-        if overall_score >= 0.8:
-            return "Strong Match - Highly Recommended"
-        elif overall_score >= 0.6:
-            return "Good Match - Recommended"
-        elif overall_score >= 0.4:
-            return "Moderate Match - Consider for Interview"
-        else:
-            return "Weak Match - Not Recommended"
+            # 确保得分在0-1之间
+            result["scores"] = {k: min(max(float(v), 0), 1) for k, v in result["scores"].items()}
+            result["overall_score"] = min(max(float(result["overall_score"]), 0), 1)
             
-    async def _generate_analysis(self, scores: Dict[str, float], 
-                               candidate_info: Dict[str, Any],
-                               job_requirements: Dict[str, Any]) -> str:
-        """Generate a detailed analysis of the candidate's fit."""
-        analysis = []
-        
-        # Add analysis implementation
-        
-        return "\n".join(analysis) 
+            return result
+            
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f"Error processing LLM response: {e}")
+            # 返回默认结果
+            return {
+                "scores": {
+                    "skills_match": 0.0,
+                    "experience_match": 0.0,
+                    "education_match": 0.0
+                },
+                "analysis": {
+                    "skills_analysis": "无法进行技能分析",
+                    "experience_analysis": "无法进行经验分析",
+                    "education_analysis": "无法进行教育背景分析",
+                    "overall_analysis": "评估过程出现错误"
+                },
+                "overall_score": 0.0,
+                "recommendation": "Weak Match - Not Recommended"
+            } 

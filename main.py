@@ -53,6 +53,7 @@ from agents.document_converter import DocumentConverterAgent
 from agents.knowledge_extractor import KnowledgeExtractorAgent
 from agents.decision_maker import DecisionMakerAgent
 from agents.jd_analyzer import JDAnalyzerAgent
+from agents.pdf_parser import PDFParserAgent
 
 app = FastAPI(title="Resume Screening System")
 
@@ -70,6 +71,7 @@ document_converter = DocumentConverterAgent()
 knowledge_extractor = KnowledgeExtractorAgent()
 decision_maker = DecisionMakerAgent()
 jd_analyzer = JDAnalyzerAgent()
+pdf_parser = PDFParserAgent()
 
 async def convert_docx_to_pdf(file_content: bytes) -> str:
     """Convert DOCX content to text directly."""
@@ -79,6 +81,18 @@ async def convert_docx_to_pdf(file_content: bytes) -> str:
 
 async def extract_text_from_pdf(pdf_content: bytes) -> str:
     """Extract text from PDF content."""
+    try:
+        # First try to use the external API parser
+        result = await pdf_parser.parse_pdf(pdf_content)
+        if isinstance(result, dict) and "text" in result:
+            return result["text"]
+        # If the API doesn't return text in expected format, log and fall back to PyPDF2
+        logger.info("External PDF parser didn't return text field, falling back to PyPDF2")
+    except Exception as e:
+        # Log the error and fall back to PyPDF2
+        logger.warning(f"Error using external PDF parser: {str(e)}. Falling back to PyPDF2")
+    
+    # Fall back to original PyPDF2 method
     pdf_file = io.BytesIO(pdf_content)
     reader = PyPDF2.PdfReader(pdf_file)
     text = ""
@@ -383,6 +397,39 @@ async def websocket_endpoint(websocket: WebSocket):
         logger.error(f"WebSocket error: {str(e)}")
     finally:
         active_connections.remove(websocket)
+
+@app.post("/parse-pdf")
+async def parse_pdf(file: UploadFile = File(...)) -> Dict[str, Any]:
+    """Parse PDF file using external API."""
+    if not file.filename.lower().endswith('.pdf'):
+        raise HTTPException(status_code=400, detail="Only PDF files are allowed")
+    
+    try:
+        content = await file.read()
+        result = await pdf_parser.parse_pdf(content)
+        return result
+    except Exception as e:
+        logger.error(f"Error parsing PDF: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/preview-file/{type}/{filename}")
+async def preview_file(type: str, filename: str):
+    """Preview file content."""
+    if type not in ['jd', 'resume']:
+        raise HTTPException(status_code=400, detail="Invalid file type")
+    
+    directory = JD_DIR if type == 'jd' else RESUME_DIR
+    file_path = os.path.join(directory, filename)
+    
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    try:
+        content = await process_file(UploadFile(filename=filename, file=open(file_path, 'rb')))
+        return content
+    except Exception as e:
+        logger.error(f"Error previewing file: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000) 

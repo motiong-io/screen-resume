@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Layout, Button, Card, Spin, message, Divider, Typography, Tag, Upload, Modal, List, Popconfirm } from 'antd';
-import { PlusOutlined, DeleteOutlined, EditOutlined, CheckCircleOutlined, CheckSquareOutlined, ClearOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteOutlined, EditOutlined, CheckCircleOutlined, CheckSquareOutlined, ClearOutlined, LeftOutlined, RightOutlined, EyeOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './App.css';
 
@@ -23,6 +23,10 @@ function App() {
   const logPanelRef = useRef(null);
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
   const [isLogPanelCollapsed, setIsLogPanelCollapsed] = useState(false);
+  const [previewModalVisible, setPreviewModalVisible] = useState(false);
+  const [previewFile, setPreviewFile] = useState(null);
+  const [previewContent, setPreviewContent] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(false);
 
   useEffect(() => {
     fetchFiles();
@@ -170,6 +174,23 @@ function App() {
     setLogs([]);
   };
 
+  const handlePreview = async (file, type) => {
+    setPreviewFile(file);
+    setPreviewModalVisible(true);
+    setPreviewLoading(true);
+
+    try {
+      const response = await axios.get(`http://localhost:8000/api/preview-file/${type}/${file}`);
+      if (response.status !== 200) throw new Error('Failed to load file preview');
+      setPreviewContent(response.data);
+    } catch (error) {
+      message.error('Failed to load file preview');
+      console.error('Preview error:', error);
+    } finally {
+      setPreviewLoading(false);
+    }
+  };
+
   const renderLogPanel = () => (
     <div className={`log-panel ${isLogPanelCollapsed ? 'collapsed' : ''}`}>
       <div 
@@ -220,62 +241,69 @@ function App() {
         className={`${type}-list`}
         itemLayout="horizontal"
         dataSource={files}
-        renderItem={(file, index) => (
-          <List.Item
-            className={`file-list-item ${type === 'jd' ? 
-              (selectedJd === file ? 'selected-file' : '') :
-              (selectedResumes.includes(file) ? 'selected-file' : '')}`}
-          >
-            <div className="file-item-content">
-              <div className="file-name">
-                {type === 'resume' && <span className="file-index">{(index + 1).toString().padStart(2, '0')}.</span>}
-                <span className="file-name-text">{file}</span>
+        renderItem={(file, index) => {
+          const isSelected = type === 'jd' 
+            ? selectedJd === file
+            : selectedResumes.includes(file);
+
+          return (
+            <List.Item
+              className={`file-list-item ${isSelected ? 'selected-file' : ''}`}
+              onClick={() => {
+                if (type === 'jd') {
+                  setSelectedJd(selectedJd === file ? null : file);
+                } else {
+                  setSelectedResumes(prev => 
+                    prev.includes(file) ? 
+                    prev.filter(name => name !== file) : 
+                    [...prev, file]
+                  );
+                }
+              }}
+            >
+              <div className="file-item-content">
+                <div className="file-name">
+                  <span className="file-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="file-name-text">{file}</span>
+                  <div className="file-actions">
+                    <Button
+                      type="text"
+                      icon={<EyeOutlined />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePreview(file, type);
+                      }}
+                    />
+                    <Button
+                      type="text"
+                      icon={<EditOutlined />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setEditingFile({ name: file, type });
+                        setNewFileName(file);
+                        setEditModalVisible(true);
+                      }}
+                    />
+                    <Button
+                      type="text"
+                      icon={<DeleteOutlined />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(file, type);
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="file-actions">
-                <Button
-                  type="text"
-                  icon={type === 'jd' ? 
-                    (selectedJd === file ? <CheckCircleOutlined style={{ color: '#52c41a' }} /> : <CheckCircleOutlined />) :
-                    (selectedResumes.includes(file) ? <CheckCircleOutlined style={{ color: '#52c41a' }} /> : <CheckCircleOutlined />)}
-                  onClick={() => {
-                    if (type === 'jd') {
-                      setSelectedJd(selectedJd === file ? null : file);
-                    } else {
-                      setSelectedResumes(prev => 
-                        prev.includes(file) ? 
-                        prev.filter(name => name !== file) : 
-                        [...prev, file]
-                      );
-                    }
-                  }}
-                />
-                <Button
-                  type="text"
-                  icon={<EditOutlined />}
-                  onClick={() => {
-                    setEditingFile({ name: file, type });
-                    setNewFileName(file);
-                    setEditModalVisible(true);
-                  }}
-                />
-                <Popconfirm
-                  title="Are you sure you want to delete this file?"
-                  onConfirm={() => handleDelete(file, type)}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button type="text" danger icon={<DeleteOutlined />} />
-                </Popconfirm>
-              </div>
-            </div>
-          </List.Item>
-        )}
+            </List.Item>
+          );
+        }}
       />
     </div>
   );
 
   const renderResults = () => {
-    if (!results) return null;
+    if (!results || !results.candidates) return null;
 
     return (
       <div className="results-container">
@@ -296,30 +324,41 @@ function App() {
 
               <Divider>Skills Match</Divider>
               <div className="skills-section">
-                {candidate.candidate_info.skills.map((skill, i) => (
+                {(candidate.candidate_info.skills || []).map((skill, i) => (
                   <Tag key={i} color="blue">{skill}</Tag>
                 ))}
               </div>
 
+              <Divider>Education</Divider>
+              {(candidate.candidate_info.education || []).map((edu, i) => (
+                <div key={i} className="education-item">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <Text strong>{edu.degree}</Text>
+                    {edu.is_qs_top20 && (
+                      <Tag color="magenta">QS Top 20</Tag>
+                    )}
+                    {edu.is_985 && !edu.is_qs_top20 && (
+                      <Tag color="purple">985高校</Tag>
+                    )}
+                    {edu.is_211 && !edu.is_985 && !edu.is_qs_top20 && (
+                      <Tag color="gold">211高校</Tag>
+                    )}
+                  </div>
+                  <Text>{edu.institution} ({edu.year})</Text>
+                  {edu.major && <Text type="secondary"> - {edu.major}</Text>}
+                </div>
+              ))}
+
               <Divider>Experience</Divider>
-              {candidate.candidate_info.experience.map((exp, i) => (
+              {(candidate.candidate_info.experience || []).map((exp, i) => (
                 <div key={i} className="experience-item">
                   <Text strong>{exp.title} at {exp.company}</Text>
                   <Text type="secondary"> ({exp.duration})</Text>
                   <ul>
-                    {exp.responsibilities.map((resp, j) => (
+                    {(exp.responsibilities || []).map((resp, j) => (
                       <li key={j}>{resp}</li>
                     ))}
                   </ul>
-                </div>
-              ))}
-
-              <Divider>Education</Divider>
-              {candidate.candidate_info.education.map((edu, i) => (
-                <div key={i} className="education-item">
-                  <Text strong>{edu.degree}</Text>
-                  <br />
-                  <Text>{edu.institution} ({edu.year})</Text>
                 </div>
               ))}
             </Card>
@@ -337,7 +376,7 @@ function App() {
         </Title>
       </Header>
       <Layout className="main-layout">
-        <Sider width={360} className="file-management-sider">
+        <Sider width={360} className="file-management-sider" style={{ position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' }}>
           <Card 
             title="Resumes" 
             extra={
@@ -358,13 +397,14 @@ function App() {
                 </Upload>
               </div>
             }
+            style={{ height: '100%' }}
           >
             {renderFileList(resumeFiles, 'resume')}
           </Card>
         </Sider>
         <Layout>
-          <Sider width={240} className="file-management-sider reduced-margin">
-            <div className="jd-section">
+          <Sider width={288} className="file-management-sider reduced-margin" style={{ position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' }}>
+            <div className="jd-section" style={{ height: '100%' }}>
               <Card 
                 title="Job Descriptions" 
                 extra={
@@ -376,6 +416,7 @@ function App() {
                     <Button type="text" icon={<PlusOutlined />} />
                   </Upload>
                 }
+                style={{ height: 'calc(100% - 60px)' }}
               >
                 {renderFileList(jdFiles, 'jd')}
               </Card>
@@ -386,12 +427,18 @@ function App() {
                 loading={loading}
                 disabled={!selectedJd || selectedResumes.length === 0}
                 className="screen-button"
+                style={{ 
+                  marginTop: '16px',
+                  width: '100%',
+                  marginLeft: '0',
+                  marginRight: '0'
+                }}
               >
                 Start Screening
               </Button>
             </div>
           </Sider>
-          <Content className={`content ${!isLogPanelCollapsed ? 'with-log' : ''}`}>
+          <Content className={`content ${!isLogPanelCollapsed ? 'with-log' : ''}`} style={{ overflowY: 'auto', height: '100vh' }}>
             {loading ? (
               <div className="loading-container">
                 <Spin size="large" />
@@ -418,6 +465,30 @@ function App() {
           onChange={e => setNewFileName(e.target.value)}
           style={{ width: '100%', padding: '8px' }}
         />
+      </Modal>
+
+      <Modal
+        title={previewFile}
+        open={previewModalVisible}
+        onCancel={() => setPreviewModalVisible(false)}
+        width={800}
+        footer={null}
+      >
+        {previewLoading ? (
+          <div style={{ textAlign: 'center', padding: '20px' }}>
+            <Spin />
+          </div>
+        ) : (
+          <pre style={{ 
+            maxHeight: '60vh', 
+            overflow: 'auto', 
+            padding: '16px',
+            backgroundColor: '#f5f5f5',
+            borderRadius: '4px'
+          }}>
+            {previewContent}
+          </pre>
+        )}
       </Modal>
     </Layout>
   );
