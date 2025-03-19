@@ -22,32 +22,77 @@ logger = logging.getLogger(__name__)
 # WebSocket connections store
 active_connections: List[WebSocket] = []
 
+# Define asset directories
+ASSETS_DIR = "assets"
+JD_DIR = os.path.join(ASSETS_DIR, "job")
+RESUME_DIR = os.path.join(ASSETS_DIR, "resume")
+LOGS_DIR = os.path.join(ASSETS_DIR, "logs")
+RESULTS_DIR = os.path.join(ASSETS_DIR, "results")  # New directory for results
+
+# Create directories if they don't exist
+os.makedirs(JD_DIR, exist_ok=True)
+os.makedirs(RESUME_DIR, exist_ok=True)
+os.makedirs(LOGS_DIR, exist_ok=True)
+os.makedirs(RESULTS_DIR, exist_ok=True)  # Create results directory
+
 class WebSocketLogger:
     def __init__(self):
         self.connections = active_connections
+        self.current_log_file = None
+        self.start_new_log_file()
+
+    def start_new_log_file(self):
+        """Start a new log file with timestamp."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.current_log_file = os.path.join(LOGS_DIR, f"screening_{timestamp}.log")
+        # Write header to log file
+        with open(self.current_log_file, 'w', encoding='utf-8') as f:
+            f.write(f"=== Screening Session Started at {datetime.now().isoformat()} ===\n\n")
 
     async def log(self, message: str, level: str = "info"):
+        """Log message to both WebSocket and file."""
+        timestamp = datetime.now().isoformat()
         log_entry = {
             "message": message,
             "level": level,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": timestamp
         }
+
+        # Send to WebSocket
         for connection in self.connections:
             try:
                 await connection.send_json(log_entry)
             except Exception as e:
                 logger.error(f"Error sending log to WebSocket: {str(e)}")
 
+        # Write to file
+        try:
+            with open(self.current_log_file, 'a', encoding='utf-8') as f:
+                f.write(f"[{timestamp}] [{level.upper()}] {message}\n")
+        except Exception as e:
+            logger.error(f"Error writing to log file: {str(e)}")
+
+    def get_log_files(self) -> List[str]:
+        """Get list of all log files."""
+        try:
+            return [f for f in os.listdir(LOGS_DIR) if f.endswith('.log')]
+        except Exception as e:
+            logger.error(f"Error listing log files: {str(e)}")
+            return []
+
+    def get_log_content(self, filename: str) -> str:
+        """Get content of a specific log file."""
+        try:
+            file_path = os.path.join(LOGS_DIR, filename)
+            if os.path.exists(file_path):
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    return f.read()
+            return "Log file not found"
+        except Exception as e:
+            logger.error(f"Error reading log file: {str(e)}")
+            return f"Error reading log file: {str(e)}"
+
 ws_logger = WebSocketLogger()
-
-# Define asset directories
-ASSETS_DIR = "assets"
-JD_DIR = os.path.join(ASSETS_DIR, "job")
-RESUME_DIR = os.path.join(ASSETS_DIR, "resume")
-
-# Create directories if they don't exist
-os.makedirs(JD_DIR, exist_ok=True)
-os.makedirs(RESUME_DIR, exist_ok=True)
 
 from agents.document_converter import DocumentConverterAgent
 from agents.knowledge_extractor import KnowledgeExtractorAgent
@@ -214,6 +259,59 @@ class ScreeningRequest(BaseModel):
 class RenameRequest(BaseModel):
     new_name: str
 
+class ScreeningResult:
+    def __init__(self):
+        self.current_result_file = None
+
+    def save_result(self, result: Dict[str, Any], jd_filename: str) -> str:
+        """Save screening result to a JSON file."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        result_filename = f"screening_{timestamp}_{os.path.splitext(jd_filename)[0]}.json"
+        result_path = os.path.join(RESULTS_DIR, result_filename)
+        
+        # Add metadata to result
+        result_with_metadata = {
+            "timestamp": datetime.now().isoformat(),
+            "jd_file": jd_filename,
+            "result": result
+        }
+        
+        with open(result_path, 'w', encoding='utf-8') as f:
+            json.dump(result_with_metadata, f, ensure_ascii=False, indent=2)
+        
+        self.current_result_file = result_filename
+        return result_filename
+
+    def get_result(self, filename: str) -> Dict[str, Any]:
+        """Get a specific screening result."""
+        result_path = os.path.join(RESULTS_DIR, filename)
+        if not os.path.exists(result_path):
+            raise FileNotFoundError(f"Result file not found: {filename}")
+            
+        with open(result_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+
+    def list_results(self) -> List[Dict[str, Any]]:
+        """List all screening results with metadata."""
+        results = []
+        for filename in os.listdir(RESULTS_DIR):
+            if filename.endswith('.json'):
+                try:
+                    result = self.get_result(filename)
+                    results.append({
+                        "filename": filename,
+                        "timestamp": result["timestamp"],
+                        "jd_file": result["jd_file"]
+                    })
+                except Exception as e:
+                    logger.error(f"Error reading result file {filename}: {str(e)}")
+        
+        # Sort by timestamp, newest first
+        results.sort(key=lambda x: x["timestamp"], reverse=True)
+        return results
+
+screening_result = ScreeningResult()
+
 @app.post("/screen-from-assets")
 async def screen_resumes_from_assets(request: ScreeningRequest) -> Dict[str, Any]:
     """Screen resumes using files from assets directories."""
@@ -286,10 +384,17 @@ async def screen_resumes_from_assets(request: ScreeningRequest) -> Dict[str, Any
         
         candidates.sort(key=lambda x: x["evaluation"]["overall_score"], reverse=True)
         await ws_logger.log("Successfully completed screening process", "success")
-        return {
+        
+        result = {
             "candidates": candidates,
             "job_requirements": job_requirements
         }
+        
+        # Save the result
+        result_filename = screening_result.save_result(result, request.jd_filename)
+        await ws_logger.log(f"Saved screening result to: {result_filename}", "success")
+        
+        return result
     except HTTPException as he:
         raise he
     except Exception as e:
@@ -313,7 +418,7 @@ async def process_file_content(content: bytes, filename: str) -> str:
             
         await ws_logger.log(f"Successfully processed file content for: {filename}", "success")
         # Log the first 200 characters of extracted text
-        preview = text[:200] + "..." if len(text) > 200 else text
+        preview = text#[:200] + "..." if len(text) > 200 else text
         await ws_logger.log(f"Extracted text preview:\n{preview}")
         return text
     except Exception as e:
@@ -429,6 +534,48 @@ async def preview_file(type: str, filename: str):
         return content
     except Exception as e:
         logger.error(f"Error previewing file: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/list-logs")
+async def list_logs():
+    """List all log files."""
+    try:
+        log_files = ws_logger.get_log_files()
+        return {"log_files": log_files}
+    except Exception as e:
+        logger.error(f"Error listing logs: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-log/{filename}")
+async def get_log(filename: str):
+    """Get content of a specific log file."""
+    try:
+        content = ws_logger.get_log_content(filename)
+        return {"content": content}
+    except Exception as e:
+        logger.error(f"Error getting log content: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/list-results")
+async def list_results():
+    """List all screening results."""
+    try:
+        results = screening_result.list_results()
+        return {"results": results}
+    except Exception as e:
+        logger.error(f"Error listing results: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/get-result/{filename}")
+async def get_result(filename: str):
+    """Get a specific screening result."""
+    try:
+        result = screening_result.get_result(filename)
+        return result
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Result not found")
+    except Exception as e:
+        logger.error(f"Error getting result: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Layout, Button, Card, Spin, message, Divider, Typography, Tag, Upload, Modal, List, Popconfirm } from 'antd';
-import { PlusOutlined, DeleteOutlined, EditOutlined, CheckCircleOutlined, CheckSquareOutlined, ClearOutlined, LeftOutlined, RightOutlined, EyeOutlined } from '@ant-design/icons';
+import { Layout, Button, Card, Spin, message, Divider, Typography, Tag, Upload, Modal, List, Popconfirm, Space, Collapse, Table } from 'antd';
+import { PlusOutlined, DeleteOutlined, EditOutlined, CheckCircleOutlined, CheckSquareOutlined, ClearOutlined, LeftOutlined, RightOutlined, EyeOutlined, HistoryOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './App.css';
 
@@ -27,10 +27,14 @@ function App() {
   const [previewFile, setPreviewFile] = useState(null);
   const [previewContent, setPreviewContent] = useState('');
   const [previewLoading, setPreviewLoading] = useState(false);
+  const [historyResults, setHistoryResults] = useState([]);
+  const [historyModalVisible, setHistoryModalVisible] = useState(false);
+  const [selectedResult, setSelectedResult] = useState(null);
 
   useEffect(() => {
     fetchFiles();
     connectWebSocket();
+    fetchHistoryResults();
     return () => {
       if (wsRef.current) {
         wsRef.current.close();
@@ -307,64 +311,176 @@ function App() {
 
     return (
       <div className="results-container">
-        <Divider>Screening Results</Divider>
-        <div className="candidates-list">
-          {results.candidates.map((candidate, index) => (
-            <Card 
-              key={index} 
-              title={`Candidate ${index + 1}: ${candidate.file_name}`}
-              className="candidate-card"
-            >
-              <div className="score-section">
-                <Title level={4}>Overall Score: {(candidate.evaluation.overall_score * 100).toFixed(1)}%</Title>
-                <Tag color={candidate.evaluation.overall_score >= 0.7 ? 'green' : 'orange'}>
-                  {candidate.evaluation.recommendation}
-                </Tag>
-              </div>
+        <List
+          className="candidates-list"
+          dataSource={results.candidates}
+          renderItem={(candidate, index) => (
+            <List.Item>
+              <Card className="candidate-card">
+                <div className="score-section">
+                  <Typography.Title level={4} style={{ margin: 0 }}>
+                    {candidate.file_name}
+                  </Typography.Title>
+                  <Space>
+                    <Tag color="blue">总分: {(candidate.evaluation.overall_score * 100).toFixed(1)}%</Tag>
+                    <Tag color={candidate.evaluation.overall_score >= 0.7 ? 'green' : 'orange'}>
+                      {candidate.evaluation.recommendation}
+                    </Tag>
+                  </Space>
+                </div>
 
-              <Divider>Skills Match</Divider>
-              <div className="skills-section">
-                {(candidate.candidate_info.skills || []).map((skill, i) => (
-                  <Tag key={i} color="blue">{skill}</Tag>
-                ))}
-              </div>
+                <Divider>技能列表</Divider>
+                <div className="skills-section">
+                  {(candidate.candidate_info.skills || []).map((skill, i) => (
+                    <Tag key={i} color="blue">{skill}</Tag>
+                  ))}
+                </div>
 
-              <Divider>Education</Divider>
-              {(candidate.candidate_info.education || []).map((edu, i) => (
-                <div key={i} className="education-item">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
-                    <Text strong>{edu.degree}</Text>
-                    {edu.is_qs_top20 && (
-                      <Tag color="magenta">QS Top 20</Tag>
-                    )}
-                    {edu.is_985 && !edu.is_qs_top20 && (
-                      <Tag color="purple">985高校</Tag>
-                    )}
-                    {edu.is_211 && !edu.is_985 && !edu.is_qs_top20 && (
-                      <Tag color="gold">211高校</Tag>
-                    )}
+                <Divider>教育经历</Divider>
+                {(candidate.candidate_info.education || []).map((edu, i) => (
+                  <div key={i} className="education-item">
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                      <Text strong>{edu.degree}</Text>
+                      {edu.is_qs_top20 && (
+                        <Tag color="magenta">QS Top 20</Tag>
+                      )}
+                      {edu.is_985 && !edu.is_qs_top20 && (
+                        <Tag color="purple">985高校</Tag>
+                      )}
+                      {edu.is_211 && !edu.is_985 && !edu.is_qs_top20 && (
+                        <Tag color="gold">211高校</Tag>
+                      )}
+                    </div>
+                    <Text>{edu.institution} ({edu.year})</Text>
+                    {edu.major && <Text type="secondary"> - {edu.major}</Text>}
                   </div>
-                  <Text>{edu.institution} ({edu.year})</Text>
-                  {edu.major && <Text type="secondary"> - {edu.major}</Text>}
-                </div>
-              ))}
+                ))}
 
-              <Divider>Experience</Divider>
-              {(candidate.candidate_info.experience || []).map((exp, i) => (
-                <div key={i} className="experience-item">
-                  <Text strong>{exp.title} at {exp.company}</Text>
-                  <Text type="secondary"> ({exp.duration})</Text>
-                  <ul>
-                    {(exp.responsibilities || []).map((resp, j) => (
-                      <li key={j}>{resp}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </Card>
-          ))}
-        </div>
+                <Divider>工作经历</Divider>
+                {(candidate.candidate_info.experience || []).map((exp, i) => (
+                  <div key={i} className="experience-item">
+                    <Text strong>{exp.title} at {exp.company}</Text>
+                    <Text type="secondary"> ({exp.duration})</Text>
+                    <ul>
+                      {(exp.responsibilities || []).map((resp, j) => (
+                        <li key={j}>{resp}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+
+                <Collapse 
+                  ghost 
+                  style={{ marginTop: '16px' }}
+                  items={[
+                    {
+                      key: '1',
+                      label: <Typography.Title level={5} style={{ margin: 0 }}>详细分析</Typography.Title>,
+                      children: (
+                        <div className="analysis-section">
+                          <div className="analysis-item">
+                            <Typography.Title level={5} style={{ marginBottom: '4px' }}>技能匹配</Typography.Title>
+                            <Typography.Paragraph style={{ marginBottom: '8px' }}>
+                              {candidate.evaluation.analysis.skills_analysis}
+                            </Typography.Paragraph>
+                            <Tag color="blue">匹配度: {(candidate.evaluation.scores.skills_match * 100).toFixed(1)}%</Tag>
+                          </div>
+
+                          <div className="analysis-item">
+                            <Typography.Title level={5} style={{ marginBottom: '4px' }}>经验匹配</Typography.Title>
+                            <Typography.Paragraph style={{ marginBottom: '8px' }}>
+                              {candidate.evaluation.analysis.experience_analysis}
+                            </Typography.Paragraph>
+                            <Tag color="blue">匹配度: {(candidate.evaluation.scores.experience_match * 100).toFixed(1)}%</Tag>
+                          </div>
+
+                          <div className="analysis-item">
+                            <Typography.Title level={5} style={{ marginBottom: '4px' }}>教育背景</Typography.Title>
+                            <Typography.Paragraph style={{ marginBottom: '8px' }}>
+                              {candidate.evaluation.analysis.education_analysis}
+                            </Typography.Paragraph>
+                            <Tag color="blue">匹配度: {(candidate.evaluation.scores.education_match * 100).toFixed(1)}%</Tag>
+                          </div>
+
+                          <div className="analysis-item">
+                            <Typography.Title level={5} style={{ marginBottom: '4px' }}>整体评估</Typography.Title>
+                            <Typography.Paragraph style={{ marginBottom: '8px' }}>
+                              {candidate.evaluation.analysis.overall_analysis}
+                            </Typography.Paragraph>
+                          </div>
+                        </div>
+                      )
+                    }
+                  ]}
+                />
+              </Card>
+            </List.Item>
+          )}
+        />
       </div>
+    );
+  };
+
+  const fetchHistoryResults = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/list-results');
+      setHistoryResults(response.data.results);
+    } catch (error) {
+      message.error('获取历史记录失败');
+    }
+  };
+
+  const loadHistoryResult = async (filename) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/get-result/${filename}`);
+      setResults(response.data.result);
+      setHistoryModalVisible(false);
+      message.success('已加载历史结果');
+    } catch (error) {
+      message.error('加载历史结果失败');
+    }
+  };
+
+  const HistoryModal = () => {
+    const columns = [
+      {
+        title: '筛选时间',
+        dataIndex: 'timestamp',
+        key: 'timestamp',
+        render: (text) => new Date(text).toLocaleString(),
+        sorter: (a, b) => new Date(b.timestamp) - new Date(a.timestamp),
+      },
+      {
+        title: 'JD文件',
+        dataIndex: 'jd_file',
+        key: 'jd_file',
+      },
+      {
+        title: '操作',
+        key: 'action',
+        render: (_, record) => (
+          <Button type="link" onClick={() => loadHistoryResult(record.filename)}>
+            加载结果
+          </Button>
+        ),
+      },
+    ];
+
+    return (
+      <Modal
+        title="历史筛选结果"
+        open={historyModalVisible}
+        onCancel={() => setHistoryModalVisible(false)}
+        footer={null}
+        width={800}
+      >
+        <Table
+          dataSource={historyResults}
+          columns={columns}
+          rowKey="filename"
+          pagination={{ pageSize: 10 }}
+        />
+      </Modal>
     );
   };
 
@@ -408,13 +524,20 @@ function App() {
               <Card 
                 title="Job Descriptions" 
                 extra={
-                  <Upload 
-                    accept=".pdf,.docx"
-                    beforeUpload={file => handleFileUpload(file, 'jd')}
-                    showUploadList={false}
-                  >
-                    <Button type="text" icon={<PlusOutlined />} />
-                  </Upload>
+                  <Space>
+                    <Upload 
+                      accept=".pdf,.docx"
+                      beforeUpload={file => handleFileUpload(file, 'jd')}
+                      showUploadList={false}
+                    >
+                      <Button type="text" icon={<PlusOutlined />} />
+                    </Upload>
+                    <Button 
+                      icon={<HistoryOutlined />} 
+                      onClick={() => setHistoryModalVisible(true)}
+                      title="查看历史结果"
+                    />
+                  </Space>
                 }
                 style={{ height: 'calc(100% - 60px)' }}
               >
@@ -448,6 +571,7 @@ function App() {
           </Content>
           {renderLogPanel()}
         </Layout>
+        <HistoryModal />
       </Layout>
 
       <Modal
