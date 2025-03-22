@@ -33,7 +33,7 @@ python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
+3. Install backend dependencies:
 ```bash
 pip install -r requirements.txt
 ```
@@ -42,6 +42,32 @@ pip install -r requirements.txt
 ```bash
 python -m spacy download en_core_web_lg
 ```
+
+5. Install frontend dependencies:
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+## Running the Application
+
+### Backend
+1. Start the backend server:
+```bash
+python main.py
+```
+2. The API will be available at `http://localhost:8000`
+3. Visit `http://localhost:8000/docs` for the interactive API documentation
+
+### Frontend
+1. Start the frontend development server:
+```bash
+cd frontend
+npm start
+```
+2. The frontend application will be available at `http://localhost:3000`
+3. The development server supports hot reloading - any changes you make to the code will automatically update in the browser
 
 ## Usage
 
